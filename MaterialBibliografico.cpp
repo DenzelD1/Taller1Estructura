@@ -6,6 +6,9 @@ class MaterialBibliografico (){
     public:
         string nombre;
         int isbn;
+        string autor;
+        virtual void mostrarInformacion(){
 
+        }
 
-}
+};
