@@ -9,6 +9,6 @@ class MaterialBibliografico (){
         string autor;
         virtual void mostrarInformacion(){
 
-        }
+        };
 
 };
