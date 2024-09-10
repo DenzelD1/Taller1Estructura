@@ -1,10 +1,10 @@
-El Principito,978-2-266-00001-3,Antoine de Saint-Exupéry
-1984,978-0-451-52493-5,George Orwell
-Cien años de soledad,978-84-297-1799-2,Gabriel García Márquez
-El señor de los anillos,978-0-261-10235-0,J.R.R. Tolkien
-Orgullo y prejuicio,978-0-141-43948-8,Jane Austen
-El alquimista,978-84-267-0722-5,Paulo Coelho
-El nombre de la rosa,978-84-08-04827-9,Umberto Eco
-Matar a un ruiseñor,978-0-446-31075-4,Harper Lee
-El extranjero,978-2-07-036300-8,Albert Camus
-El principito,978-2-266-00001-3,Antoine de Saint-Exupéry
+Revista,Scientific American,Anna Wintour,978-1-345-67890-2,5,Diciembre
+Libro,El Principito,Antoine de Saint-Exupéry,978-2-266-00001-3,1943,"Una fábula sobre un joven príncipe que viaja a través del universo, aprendiendo lecciones de vida y explorando temas de amor y soledad."
+Libro,El señor de los anillos,J.R.R. Tolkien,978-0-261-10235-0,1954,"Una épica trilogía de fantasía que sigue la aventura de un hobbit para destruir un anillo de gran poder y salvar la Tierra Media."
+Revista,Forbes,Steve Forbes,978-1-234-56789-0,4,Julio
+Libro,1984,George Orwell,978-0-451-52493-5,1949,"Una novela distópica que explora los efectos de la vigilancia extrema y la opresión en una sociedad totalitaria."
+Revista,The Atlantic,Jeffrey Goldberg,978-1-234-09876-5,3,Enero
+Libro,Cien años de soledad,Gabriel García Márquez,978-84-297-1799-2,1967,"Una saga familiar que narra la historia de los Buendía a lo largo de un siglo en el pueblo ficticio de Macondo."
+Revista,Harper's Bazaar,Samira Nasr,978-1-876-54321-0,8,Junio
+Revista,The Economist,Zanny Minton Beddoes,978-1-234-55328-0,9,Febrero
+Libro,Orgullo y prejuicio,Jane Austen,978-0-141-43948-8,1813,"Una novela romántica que examina la naturaleza del amor y las relaciones sociales a través de la historia de Elizabeth Bennet y Mr. Darcy."

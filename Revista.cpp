@@ -3,7 +3,7 @@
 #include "MaterialBibliografico.h"
 using namespace std;
 
-Revista :: Revista(int numEdicion, int mesPublicacion, string tituloLibro, string autor, string isbn, 
+Revista :: Revista(int numEdicion, string mesPublicacion, string tituloLibro, string autor, string isbn, 
                     bool prestado) 
     : MaterialBibliografico(tituloLibro, autor, isbn, prestado) {
 
@@ -21,4 +21,4 @@ void Revista :: mostrarInformacion() {
 }
 
 int Revista :: getNumEdicion() { return numEdicion; }
-int Revista :: getMesPublicacion() { return mesPublicacion; }
+string Revista :: getMesPublicacion() { return mesPublicacion; }
