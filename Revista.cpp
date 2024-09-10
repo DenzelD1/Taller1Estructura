@@ -1,18 +1,24 @@
 #include <iostream>
+#include "Revista.h"
+#include "MaterialBibliografico.h"
 using namespace std;
 
-class Revista : public MaterialBibliografico{
+Revista :: Revista(int numEdicion, int mesPublicacion, string tituloLibro, string autor, int isbn, 
+                    bool prestado) 
+    : MaterialBibliografico(tituloLibro, autor, isbn, prestado) {
 
-    private:
-        int numeroEdicion;
-        string mesPublicacion;
-
-    public:
-
-        Revista(string nombre, int isbn, string autor, int numeroEdicion, string mesPublicacion) : MaterialBibliografico(string nombre, int isbn, string autor), Revista(numeroEdicion, mesPublicacion) {}
-
-        mostrarInformacion(){
-            
-        }
-
+    this -> numEdicion = numEdicion;
+    this -> mesPublicacion = mesPublicacion;
 }
+
+void Revista :: mostrarInformacion() {
+    cout << "Título: " << getTituloLibro() << endl;
+    cout << "Autor: " << getAutor() << endl;
+    cout << "ISBN: " << getIsbn() << endl;
+    cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << endl;
+    cout << "Edición: " << getNumEdicion() << endl;
+    cout << "Mes de publicación: " <<  getMesPublicacion() << endl;
+}
+
+int Revista :: getNumEdicion() { return numEdicion; }
+int Revista :: getMesPublicacion() { return mesPublicacion; }

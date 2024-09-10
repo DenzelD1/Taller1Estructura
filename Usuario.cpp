@@ -1,28 +1,20 @@
 #include <iostream>
+#include "Usuario.h"
 using namespace std;
 
-class Usuario(){
-    
-    public:
+Usuario :: Usuario(string nombre, int id) {
+    this -> nombre = nombre;
+    this -> id = id;
+}
 
-        string nombreUsuario;
-        int identificacion;
-        MaterialBibliografico* materialesPrestados[5];
+void Usuario :: prestarMaterial() {
 
-        Usuario (string nombreUsuario, int identificacion) : nombreUsuario(nombreUsuario), identificacion(identificacion) {} 
+}
 
-        prestarMaterial(){
+void Usuario :: devolverMaterial() {
 
-        }
+}
 
-        devolverMaterial(){
+void Usuario :: mostrarMaterialesPrestados() {
 
-        }
-
-        mostrarMaterialesPrestados(){
-
-        }
-
-};
-
-
+}

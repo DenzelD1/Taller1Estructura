@@ -1,18 +1,24 @@
 #include <iostream>
+#include "Libro.h"
+#include "MaterialBibliografico.h"
 using namespace std;
 
-class Libro : public MaterialBibliografico{
+Libro :: Libro (string fechaPublicacion, string resumen, string tituloLibro, string autor, int isbn,
+                bool prestado) 
+    : MaterialBibliografico(tituloLibro, autor, isbn, prestado) {
 
-    private:
-        string fechaPublicacion;
-        string resumen;
-
-    public:
-
-        Libro(string nombre, int isbn, string autor, string fechaPublicacion, string resumen) : MaterialBibliografico(string nombre, int isbn, string autor), Libro(fechaPublicacion, resumen) {}
-
-        mostrarInformacion(){
-            
-        }
-
+    this -> fechaPublicacion = fechaPublicacion;
+    this -> resumen = resumen;
 }
+
+void Libro :: mostrarInformacion() {
+    cout << "Título: " << getTituloLibro() << endl;
+    cout << "Autor: " << getAutor() << endl;
+    cout << "ISBN: " << getIsbn() << endl;
+    cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << endl;
+    cout << "Fecha de publicación: " << getFechaPublicacion() << endl;
+    cout << "Resumen: " << getResumen() << endl;
+}
+
+string Libro :: getFechaPublicacion() { return fechaPublicacion; }
+string Libro :: getResumen() { return resumen; }
