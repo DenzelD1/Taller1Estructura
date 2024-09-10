@@ -9,10 +9,10 @@
                 "-g",
                 "${workspaceFolder}/*.cpp",
                 "-o",
-                "${workspaceFolder}\\output.exe"
+                "${workspaceFolder}/output.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

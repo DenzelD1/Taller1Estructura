@@ -9,6 +9,10 @@ MaterialBibliografico :: MaterialBibliografico(string tituloLibro, string autor,
     this -> prestado = prestado;
 }
 
+void MaterialBibliografico :: mostrarInformacion() {
+    cout << "Informacion general" << endl;
+}
+
 string MaterialBibliografico :: getTituloLibro() { return tituloLibro; }
 string MaterialBibliografico :: getAutor() { return autor; }
 string MaterialBibliografico :: getIsbn() { return isbn; }

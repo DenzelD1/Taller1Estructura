@@ -2,22 +2,23 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "MaterialBibliografico.cpp"
+#include "MaterialBibliografico.h"
 using namespace std;
 
+/*
 vector<MaterialBibliografico> crearBiblioteca();
-
+*/
 int main() {
 
     cout << "hokla" << endl;
     cout << "Margot Robbie y Anya Taylor-Joy son mis actrices favoritas :>" << endl;
 
-    vector<MaterialBibliografico> biblioteca = crearBiblioteca();
+    //vector<MaterialBibliografico> biblioteca = crearBiblioteca();
     
 
     return 0;
 }
-
+/*
 vector<MaterialBibliografico> crearBiblioteca(){
 
     vector<MaterialBibliografico> biblioteca;
@@ -44,3 +45,4 @@ vector<MaterialBibliografico> crearBiblioteca(){
 
     return biblioteca;
 }
+*/
