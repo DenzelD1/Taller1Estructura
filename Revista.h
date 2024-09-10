@@ -11,7 +11,7 @@ class Revista: public MaterialBibliografico {
 
     public:
         Revista(int numEdicion, int mesPublicacion, string tituloLibro, string autor, 
-                    int isbn, bool prestado);
+                    string isbn, bool prestado);
         void mostrarInformacion() override;
         int getNumEdicion();
         int getMesPublicacion();

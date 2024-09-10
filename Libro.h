@@ -11,7 +11,7 @@ class Libro: public MaterialBibliografico {
     
     public:
         Libro(string fechaPublicacion, string resumen, string tituloLibro, string autor, 
-                int isbn, bool prestado);
+                string isbn, bool prestado);
         void mostrarInformacion() override;
         string getFechaPublicacion();
         string getResumen();

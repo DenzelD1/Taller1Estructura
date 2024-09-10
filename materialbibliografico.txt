@@ -1,0 +1,10 @@
+El Principito,978-2-266-00001-3,Antoine de Saint-Exupéry,true
+1984,978-0-451-52493-5,George Orwell,false
+Cien años de soledad,978-84-297-1799-2,Gabriel García Márquez,true
+El señor de los anillos,978-0-261-10235-0,J.R.R. Tolkien,false
+Orgullo y prejuicio,978-0-141-43948-8,Jane Austen,true
+El alquimista,978-84-267-0722-5,Paulo Coelho,false
+El nombre de la rosa,978-84-08-04827-9,Umberto Eco,true
+Matar a un ruiseñor,978-0-446-31075-4,Harper Lee,false
+El extranjero,978-2-07-036300-8,Albert Camus,true
+El principito,978-2-266-00001-3,Antoine de Saint-Exupéry,false

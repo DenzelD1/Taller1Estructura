@@ -3,7 +3,7 @@
 #include "MaterialBibliografico.h"
 using namespace std;
 
-Libro :: Libro (string fechaPublicacion, string resumen, string tituloLibro, string autor, int isbn,
+Libro :: Libro (string fechaPublicacion, string resumen, string tituloLibro, string autor, string isbn,
                 bool prestado) 
     : MaterialBibliografico(tituloLibro, autor, isbn, prestado) {
 
