@@ -57,6 +57,15 @@ vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArc
     return biblioteca;
 }
 
+//                    TRANSFIERE LOS RECURSOS DEL VECTOR AL ARRAY BIBLIOTECA
+void transferirMaterialesABiblioteca(MaterialBibliografico* biblioteca[], 
+    const vector<MaterialBibliografico*>& materiales, int cantidadMateriales) {
+    
+    for (size_t i = 0; i < materiales.size() && cantidadMateriales < 100; i++) {
+        biblioteca[cantidadMateriales] = materiales[i];
+        cantidadMateriales++;
+    }
+}
 //                          MOSTRAR QUE ESTÁN GUARDADOS CORRECTAMENTE
 void mostrarBiblioteca(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
     for (int i = 0; i < cantidadMateriales; i++) {
@@ -82,13 +91,7 @@ int main() {
     int cantidadMateriales = 0;
 
     vector<MaterialBibliografico*> materiales = leerMaterialBibliografico("materialbibliografico.txt");
-    
-    //Este ciclo guardará todos los materiales del vector al array biblioteca
-    for (size_t i = 0; i < materiales.size() && cantidadMateriales < 100; i++) {
-        biblioteca[cantidadMateriales] = materiales[i];
-        cantidadMateriales++;
-    }
-
+    transferirMaterialesABiblioteca(biblioteca, materiales, cantidadMateriales);
     mostrarBiblioteca(biblioteca, cantidadMateriales);
     liberarMemoria(biblioteca, cantidadMateriales);
     return 0;
