@@ -5,6 +5,7 @@
 #include "MaterialBibliografico.h"
 #include "Revista.h"
 #include "Libro.h"
+#include "Usuario.h"
 
 using namespace std;
 
@@ -57,24 +58,38 @@ vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArc
 }
 
 //                          MOSTRAR QUE ESTÁN GUARDADOS CORRECTAMENTE
-void mostrarBiblioteca(const vector<MaterialBibliografico*>& biblioteca) {
-    for (MaterialBibliografico* material : biblioteca) {
-        material->mostrarInformacion();
+void mostrarBiblioteca(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
+    for (int i = 0; i < cantidadMateriales; i++) {
+        biblioteca[i] -> mostrarInformacion();
         cout << "-------------------------------" << endl;
+    }
+}
+
+void liberarMemoria(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
+    for (int i = 0; i < cantidadMateriales; i++) {
+        if (biblioteca[i] != nullptr) {
+            cout << "Eliminando " << biblioteca[i] -> getTituloLibro() << "..." << endl;
+            delete biblioteca[i];
+            biblioteca[i] = nullptr;
+        }
     }
 }
 
 //                          MAIN
 
 int main() {
-    vector<MaterialBibliografico*> biblioteca = leerMaterialBibliografico("materialbibliografico.txt");
-    
-    mostrarBiblioteca(biblioteca);
+    MaterialBibliografico* biblioteca[100];
+    int cantidadMateriales = 0;
 
-    // Liberar la memoria de los objetos creados
-    for (MaterialBibliografico* material : biblioteca) {
-        delete material;
+    vector<MaterialBibliografico*> materiales = leerMaterialBibliografico("materialbibliografico.txt");
+    
+    //Este ciclo guardará todos los materiales del vector al array biblioteca
+    for (size_t i = 0; i < materiales.size() && cantidadMateriales < 100; i++) {
+        biblioteca[cantidadMateriales] = materiales[i];
+        cantidadMateriales++;
     }
 
+    mostrarBiblioteca(biblioteca, cantidadMateriales);
+    liberarMemoria(biblioteca, cantidadMateriales);
     return 0;
 }

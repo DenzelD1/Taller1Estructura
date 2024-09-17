@@ -8,11 +8,11 @@ class Usuario {
     private:
         string nombre;
         int id;
-        MaterialBibliografico* materialesPrestados[5];
+        MaterialBibliografico* materialesPrestados[5] = {nullptr, nullptr, nullptr, nullptr, nullptr};
 
     public:
         Usuario(string nombre, int id);
-        void prestarMaterial();
-        void devolverMaterial();
+        void prestarMaterial(MaterialBibliografico* material);
+        void devolverMaterial(MaterialBibliografico* material);
         void mostrarMaterialesPrestados();
 };
