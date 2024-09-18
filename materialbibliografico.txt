@@ -1,10 +1,10 @@
-Revista,Scientific American,Anna Wintour,978-1-345-67890-2,5,Diciembre
-Libro,El Principito,Antoine de Saint-Exupéry,978-2-266-00001-3,1943,"Un joven príncipe viaja por el universo, aprendiendo sobre la vida, el amor y la soledad."
-Libro,Dune,Frank Herbert,978-0-441-17784-0,1965,"Un joven noble lucha por el control de un planeta desértico y su valiosa especia."
-Revista,Forbes,Steve Forbes,978-1-234-56789-0,4,Julio
-Libro,1984,George Orwell,978-0-451-52493-5,1949,"Una sociedad totalitaria controla la vida de sus ciudadanos a través de la vigilancia constante."
-Revista,The Atlantic,Jeffrey Goldberg,978-1-234-09876-5,3,Enero
-Libro,Orgullo y prejuicio,Jane Austen,980-0-141-43948-8,1813,"Una joven mujer de clase media debe superar los prejuicios sociales para encontrar el amor."
-Revista,Harper's Bazaar,Samira Nasr,978-1-876-54321-0,8,Junio
-Revista,The Economist,Zanny Minton Beddoes,978-1-234-55328-0,9,Febrero
-Libro,El gran Gatsby,F. Scott Fitzgerald,978-0-7432-7356-5,1925,"Un millonario misterioso organiza fastuosas fiestas en los años 20, mientras esconde un pasado turbulento."
+Revista,Scientific American,Anna Wintour,978-1-345-67890-2,false,5,Diciembre
+Libro,El Principito,Antoine de Saint-Exupéry,978-2-266-00001-3,false,1943,"Un joven príncipe viaja por el universo, aprendiendo sobre la vida, el amor y la soledad."
+Libro,Dune,Frank Herbert,978-0-441-17784-0,false,1965,"Un joven noble lucha por el control de un planeta desértico y su valiosa especia."
+Revista,Forbes,Steve Forbes,978-1-234-56789-0,false,4,Julio
+Libro,1984,George Orwell,978-0-451-52493-5,false,1949,"Una sociedad totalitaria controla la vida de sus ciudadanos a través de la vigilancia constante."
+Revista,The Atlantic,Jeffrey Goldberg,978-1-234-09876-5,false,3,Enero
+Libro,Orgullo y prejuicio,Jane Austen,980-0-141-43948-8,false,1813,"Una joven mujer de clase media debe superar los prejuicios sociales para encontrar el amor."
+Revista,Harper's Bazaar,Samira Nasr,978-1-876-54321-0,false,8,Junio
+Revista,The Economist,Zanny Minton Beddoes,978-1-234-55328-0,false,9,Febrero
+Libro,El gran Gatsby,F. Scott Fitzgerald,978-0-7432-7356-5,false,1925,"Un millonario misterioso organiza fastuosas fiestas en los años 20, mientras esconde un pasado turbulento."

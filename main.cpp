@@ -54,30 +54,36 @@ vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArc
     
     while (getline(archivo, linea)) {
         stringstream ss(linea);
-        string tipo, titulo, autor, isbn;
+        string tipo, titulo, autor, isbn, prestadoStr;
         bool prestado;
-        string prestadoStr;
         
         getline(ss, tipo, ',');  
 
         if (tipo == "Revista") {
             int numEdicion;
-            string mesPublicacion;
+            int mesPublicacion;
             getline(ss, titulo, ',');
             getline(ss, autor, ',');
             getline(ss, isbn, ',');
+            getline(ss, prestadoStr, ',');
+            prestado = (prestadoStr == "true");
             ss >> numEdicion;
             ss.ignore(); 
             ss >> mesPublicacion;
-            biblioteca.push_back(new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false));
+            ss.ignore();
+            biblioteca.push_back(new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, prestado));
         } else if (tipo == "Libro") {
-            string fechaPublicacion, resumen;
+            string resumen;
+            int fechaPublicacion;
             getline(ss, titulo, ',');
             getline(ss, autor, ',');
             getline(ss, isbn, ',');
-            getline(ss, fechaPublicacion, ',');
+            getline(ss, prestadoStr, ',');
+            prestado = (prestadoStr == "true");
+            ss >> fechaPublicacion;
+            ss.ignore();
             getline(ss, resumen, ',');
-            biblioteca.push_back(new Libro(fechaPublicacion, resumen, titulo, autor, isbn, false));
+            biblioteca.push_back(new Libro(fechaPublicacion, resumen, titulo, autor, isbn, prestado));
         }
     }
 
@@ -136,25 +142,28 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
     getline(cin, isbn);
 
     if (opcion == 1) {
-        string fechaPublicacion, resumen;
-        cout << "Ingrese la fecha de publicación: ";
-        getline(cin, fechaPublicacion);
+        string resumen;
+        int fechaPublicacion;
+        cout << "Ingrese el anio de publicación: ";
+        cin >> fechaPublicacion;
+        cin.ignore();
         cout << "Ingrese el resumen: ";
         getline(cin, resumen);
         biblioteca[cantidadMateriales] = new Libro(fechaPublicacion, resumen, titulo, autor, isbn, false);
     } else {
         
         int numEdicion;
-        string mesPublicacion;
+        int mesPublicacion;
         cout << "Ingrese el número de edición: ";
         cin >> numEdicion;
         cin.ignore();
         cout << "Ingrese el mes de publicación: ";
-        getline(cin, mesPublicacion);
+        cin >> mesPublicacion;
+        cin.ignore();
+        if (mesPublicacion > 12 || mesPublicacion < 1) { cout << "Mes inválido." << endl; return; }
         biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
         
     }
-
     cantidadMateriales++;
     cout << "Material agregado exitosamente.\n";
 }
@@ -431,9 +440,7 @@ int main() {
                 break;
         }
     } while (opcion != 9); 
-
     liberarMemoria(biblioteca, cantidadMateriales);
-
     for (Usuario* usuario : usuarios) { delete usuario; }
     return 0;
 }

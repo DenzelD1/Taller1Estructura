@@ -3,7 +3,7 @@
 #include "MaterialBibliografico.h"
 using namespace std;
 
-Libro :: Libro (string fechaPublicacion, string resumen, string tituloLibro, string autor, string isbn,
+Libro :: Libro (int fechaPublicacion, string resumen, string tituloLibro, string autor, string isbn,
                 bool prestado) 
     : MaterialBibliografico(tituloLibro, autor, isbn, prestado) {
 
@@ -20,5 +20,5 @@ void Libro :: mostrarInformacion() {
     cout << "Resumen: " << getResumen() << endl;
 }
 
-string Libro :: getFechaPublicacion() { return fechaPublicacion; }
+int Libro :: getFechaPublicacion() { return fechaPublicacion; }
 string Libro :: getResumen() { return resumen; }

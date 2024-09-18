@@ -6,14 +6,14 @@ using namespace std;
 class Libro: public MaterialBibliografico {
 
     private:
-        string fechaPublicacion;
+        int fechaPublicacion;
         string resumen;
     
     public:
-        Libro(string fechaPublicacion, string resumen, string tituloLibro, string autor, 
+        Libro(int fechaPublicacion, string resumen, string tituloLibro, string autor, 
                 string isbn, bool prestado);
         void mostrarInformacion() override;
-        string getFechaPublicacion();
+        int getFechaPublicacion();
         string getResumen();
 
 };
