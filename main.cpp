@@ -6,6 +6,8 @@
 #include "Revista.h"
 #include "Libro.h"
 #include "Usuario.h"
+#include <limits>
+#include "EntradaNoNumericaException.h"
 
 using namespace std;
 
@@ -141,14 +143,16 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
         getline(cin, resumen);
         biblioteca[cantidadMateriales] = new Libro(fechaPublicacion, resumen, titulo, autor, isbn, false);
     } else {
+        
         int numEdicion;
-        string mesPublicacion;
-        cout << "Ingrese el número de edición: ";
-        cin >> numEdicion;
-        cin.ignore();
-        cout << "Ingrese el mes de publicación: ";
-        getline(cin, mesPublicacion);
-        biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
+            string mesPublicacion;
+            cout << "Ingrese el número de edición: ";
+            cin >> numEdicion;
+            cin.ignore();
+            cout << "Ingrese el mes de publicación: ";
+            getline(cin, mesPublicacion);
+            biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
+        
     }
 
     cantidadMateriales++;
@@ -298,6 +302,7 @@ int main() {
     cout << "Usuarios actualmente registrados..." << endl;
     mostrarUsuarios(usuarios);
 
+    
     while (usuarioActivo == nullptr) {
         cout << "---- Iniciar sesión ----\n";
         cout << "Ingrese su ID: ";
@@ -317,6 +322,7 @@ int main() {
             cout << "ID no encontrado. Intente nuevamente.\n";
         }
     }
+    
     
     int opcion;
     do {
