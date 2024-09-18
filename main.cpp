@@ -13,6 +13,33 @@ using namespace std;
 //                                      FUNCIONES
 //---------------------------------------------------------------------------------------------------
 
+vector<Usuario*> leerUsuarios(const string& nombreArchivo) {
+    vector<Usuario*> usuarios;
+    ifstream archivo(nombreArchivo);
+
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo de usuarios: " << nombreArchivo << endl;
+        return usuarios;
+    }
+
+    string linea;
+    while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string nombre;
+        int id;
+        
+        getline(ss, nombre, ',');  // Leer el nombre del usuario
+        ss >> id;  // Leer el ID (edad en este caso)
+
+        // Crear el nuevo usuario y agregarlo al vector
+        Usuario* nuevoUsuario = new Usuario(nombre, id);
+        usuarios.push_back(nuevoUsuario);
+    }
+
+    archivo.close();
+    return usuarios;
+}
+
 vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArchivo) {
     vector<MaterialBibliografico*> biblioteca;
     ifstream archivo(nombreArchivo);
@@ -204,11 +231,31 @@ void devolverMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int
 int main() {
     MaterialBibliografico* biblioteca[100];
     int cantidadMateriales = 0;
-
-    Usuario usuario("Juan Perez", 1);
-
     vector<MaterialBibliografico*> materiales = leerMaterialBibliografico("materialbibliografico.txt");
     transferirMaterialesABiblioteca(biblioteca, materiales, cantidadMateriales);
+
+    vector<Usuario*> usuarios = leerUsuarios("usuarios.txt");
+    Usuario* usuarioActivo = nullptr;
+
+    while (usuarioActivo == nullptr) {
+        cout << "---- Iniciar sesión ----\n";
+        cout << "Ingrese su ID: ";
+        int id;
+        cin >> id;
+        cin.ignore();
+
+        for (Usuario* usuario : usuarios) {
+            if (usuario -> getId() == id) {
+                usuarioActivo = usuario;
+                cout << "Bienvenido(a), " << usuarioActivo->getNombre() << ".\n";
+                break;
+            }
+        }
+
+        if (usuarioActivo == nullptr) {
+            cout << "ID no encontrado. Intente nuevamente.\n";
+        }
+    }
     
     int opcion;
     do {
@@ -219,7 +266,9 @@ int main() {
         cout << "4. Prestar Material\n";
         cout << "5. Devolver Material\n";
         cout << "6. Mostrar Materiales Prestados\n";
-        cout << "7. Salir\n";
+        cout << "7. Gestionar usuarios\n";
+        cout << "8. Cerrar sesión\n";
+        cout << "9. Salir\n";
         cout << "Seleccione una opción: ";
         cin >> opcion;
         cin.ignore(); 
@@ -236,22 +285,50 @@ int main() {
                 buscarMaterial(biblioteca, cantidadMateriales);
                 break;
             case 4:
-                prestarMaterial(usuario, biblioteca, cantidadMateriales);
+                if (usuarioActivo != nullptr) {
+                    prestarMaterial(*usuarioActivo, biblioteca, cantidadMateriales);
+                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 5:
-                devolverMaterial(usuario, biblioteca, cantidadMateriales);
+                if (usuarioActivo != nullptr) {
+                    devolverMaterial(*usuarioActivo, biblioteca, cantidadMateriales);
+                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 6:
-                usuario.mostrarMaterialesPrestados();
+                if (usuarioActivo != nullptr) {
+                    usuarioActivo -> mostrarMaterialesPrestados();
+                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 7:
-                cout << "Saliendo...\n";
+                break;
+            case 8:
+                cout << "Cerrando sesión de " << usuarioActivo -> getNombre() << ".\n";
+                usuarioActivo = nullptr;
+                while (usuarioActivo == nullptr) {
+                    cout << "---- Iniciar sesión ----\n";
+                    cout << "Ingrese su ID: ";
+                    int id;
+                    cin >> id;
+                    cin.ignore(); 
+
+                    for (Usuario* usuario : usuarios) {
+                        if (usuario->getId() == id) {
+                            usuarioActivo = usuario;
+                            cout << "Bienvenido, " << usuarioActivo -> getNombre() << ".\n";
+                            break;
+                        }
+                    }
+                    if (usuarioActivo == nullptr) { cout << "ID no encontrado. Intente nuevamente.\n"; }
+                }
+                break;
+            case 9:
+                cout << "Saliendo del sistema...\n";
                 break;
             default:
                 cout << "Opción no válida.\n";
                 break;
         }
-    } while (opcion != 7); 
+    } while (opcion != 9); 
 
     liberarMemoria(biblioteca, cantidadMateriales);
     return 0;

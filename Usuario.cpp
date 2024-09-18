@@ -7,6 +7,8 @@ Usuario :: Usuario(string nombre, int id) {
     this -> id = id;
 }
 
+string Usuario :: getNombre() { return nombre; }
+int Usuario :: getId() { return id; }
 void Usuario :: prestarMaterial(MaterialBibliografico* material) {
     for (int i = 0; i < 5; i++) {
         

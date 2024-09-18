@@ -12,7 +12,10 @@ class Usuario {
 
     public:
         Usuario(string nombre, int id);
+        string getNombre();
+        int getId();
         void prestarMaterial(MaterialBibliografico* material);
         void devolverMaterial(MaterialBibliografico* material);
         void mostrarMaterialesPrestados();
+
 };
