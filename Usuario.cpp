@@ -9,6 +9,8 @@ Usuario :: Usuario(string nombre, int id) {
 
 string Usuario :: getNombre() { return nombre; }
 int Usuario :: getId() { return id; }
+MaterialBibliografico** Usuario :: getMaterialesPrestados() { return materialesPrestados; }
+
 void Usuario :: prestarMaterial(MaterialBibliografico* material) {
     for (int i = 0; i < 5; i++) {
         

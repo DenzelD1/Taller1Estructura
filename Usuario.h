@@ -14,6 +14,7 @@ class Usuario {
         Usuario(string nombre, int id);
         string getNombre();
         int getId();
+        MaterialBibliografico** getMaterialesPrestados();
         void prestarMaterial(MaterialBibliografico* material);
         void devolverMaterial(MaterialBibliografico* material);
         void mostrarMaterialesPrestados();

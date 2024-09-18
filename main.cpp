@@ -145,13 +145,13 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
     } else {
         
         int numEdicion;
-            string mesPublicacion;
-            cout << "Ingrese el número de edición: ";
-            cin >> numEdicion;
-            cin.ignore();
-            cout << "Ingrese el mes de publicación: ";
-            getline(cin, mesPublicacion);
-            biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
+        string mesPublicacion;
+        cout << "Ingrese el número de edición: ";
+        cin >> numEdicion;
+        cin.ignore();
+        cout << "Ingrese el mes de publicación: ";
+        getline(cin, mesPublicacion);
+        biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
         
     }
 
@@ -261,7 +261,7 @@ void buscarUsuario(const vector<Usuario*>& usuarios) {
     cout << "Usuario con ID " << id << " no encontrado.\n";
 }
 
-void eliminarUsuario(vector<Usuario*>& usuarios) {
+void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& eliminarse) {
     int id;
     cout << "Ingrese la ID del usuario que desea eliminar: ";
     cin >> id;
@@ -269,6 +269,14 @@ void eliminarUsuario(vector<Usuario*>& usuarios) {
 
     for (size_t i = 0; i < usuarios.size(); i++) {
         if (usuarios[i] -> getId() == id) {
+            MaterialBibliografico** materialesPrestados = usuarios[i] -> getMaterialesPrestados();
+            if (usuarios[i] -> getId() == usuario.getId()) { eliminarse = true; }
+            for (int j = 0; j < 5; j++) {
+                if (materialesPrestados[j] != nullptr) { 
+                    materialesPrestados[j] -> setPrestado(false);
+                    materialesPrestados[j] = nullptr;
+                }
+            }
             cout << "Eliminando usuario " << usuarios[i] -> getNombre() << ".\n";
             delete usuarios[i];
             usuarios.erase(usuarios.begin() + i);
@@ -323,25 +331,27 @@ int main() {
         }
     }
     
-    
+    bool eliminarse = false;
     int opcion;
     do {
-        cout << "\n---- Menú Biblioteca ----\n";
-        cout << "1. Mostrar Biblioteca\n";
-        cout << "2. Agregar Material\n";
-        cout << "3. Buscar Material\n";
-        cout << "4. Prestar Material\n";
-        cout << "5. Devolver Material\n";
-        cout << "6. Mostrar Materiales Prestados\n";
-        cout << "7. Gestionar usuarios\n";
-        cout << "8. Cerrar sesión\n";
-        cout << "9. Salir\n";
-        cout << "10. Lista de usuarios actuales\n";
-        cout << "Seleccione una opción: ";
-        cin >> opcion;
-        cin.ignore(); 
+        if (eliminarse) { opcion = 8; }
+        else {
+            cout << "\n---- Menú Biblioteca ----\n";
+            cout << "1. Mostrar Biblioteca\n";
+            cout << "2. Agregar Material\n";
+            cout << "3. Buscar Material\n";
+            cout << "4. Prestar Material\n";
+            cout << "5. Devolver Material\n";
+            cout << "6. Mostrar Materiales Prestados\n";
+            cout << "7. Gestionar usuarios\n";
+            cout << "8. Cerrar sesión\n";
+            cout << "9. Salir\n";
+            cout << "10. Lista de usuarios actuales\n";
+            cout << "Seleccione una opción: ";
+            cin >> opcion;
+            cin.ignore();
+        }
         cout << "-----------------------------------------------" << endl;
-
         switch (opcion) {
             case 1:
                 mostrarBiblioteca(biblioteca, cantidadMateriales);
@@ -353,22 +363,18 @@ int main() {
                 buscarMaterial(biblioteca, cantidadMateriales);
                 break;
             case 4:
-                if (usuarioActivo != nullptr) {
-                    prestarMaterial(*usuarioActivo, biblioteca, cantidadMateriales);
-                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
+                if (usuarioActivo != nullptr) { prestarMaterial(*usuarioActivo, biblioteca, cantidadMateriales); } 
+                else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 5:
-                if (usuarioActivo != nullptr) {
-                    devolverMaterial(*usuarioActivo, biblioteca, cantidadMateriales);
-                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
+                if (usuarioActivo != nullptr) { devolverMaterial(*usuarioActivo, biblioteca, cantidadMateriales); } 
+                else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 6:
-                if (usuarioActivo != nullptr) {
-                    usuarioActivo -> mostrarMaterialesPrestados();
-                } else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
+                if (usuarioActivo != nullptr) { usuarioActivo -> mostrarMaterialesPrestados(); } 
+                else { cout << "No hay un usuario activo. Inicie sesión primero.\n"; }
                 break;
             case 7:
-                cout << "------------------------------------------";
                 cout << "1. Crear Usuario\n";
                 cout << "2. Buscar Usuario\n";
                 cout << "3. Eliminar Usuario\n";
@@ -384,7 +390,7 @@ int main() {
                         buscarUsuario(usuarios);
                         break;
                     case 3:
-                        eliminarUsuario(usuarios);
+                        eliminarUsuario(usuarios, *usuarioActivo, eliminarse);
                         break;
                     default:
                         cout << "Opción no válida.\n";
@@ -392,7 +398,10 @@ int main() {
                 }
                 break;
             case 8:
-                cout << "Cerrando sesión de " << usuarioActivo -> getNombre() << ".\n";
+                if (eliminarse) { 
+                    cout << "Cerrando sesión porque se eliminó el usuario que estaba usando el sistema..." << endl; 
+                    eliminarse = false;
+                } else { cout << "Cerrando sesión de " << usuarioActivo -> getNombre() << ".\n"; } 
                 usuarioActivo = nullptr;
                 while (usuarioActivo == nullptr) {
                     cout << "---- Iniciar sesión ----\n";
@@ -402,7 +411,7 @@ int main() {
                     cin.ignore(); 
 
                     for (Usuario* usuario : usuarios) {
-                        if (usuario->getId() == id) {
+                        if (usuario -> getId() == id) {
                             usuarioActivo = usuario;
                             cout << "Bienvenido, " << usuarioActivo -> getNombre() << ".\n";
                             break;
