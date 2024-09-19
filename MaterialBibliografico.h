@@ -57,25 +57,25 @@ class MaterialBibliografico {
          * @brief Consigue el título del material.
          */
 
-        string getTituloLibro();
+        string getTituloLibro() const;
 
         /**
          * @brief Consigue el nombre del autor.
          */
 
-        string getAutor();
+        string getAutor() const;
 
         /**
          * @brief Consigue el identificador del libro (isbn).
          */
 
-        string getIsbn();
+        string getIsbn() const;
 
         /**
          * @brief Consigue el estado del material si está prestado o no.
          */
 
-        bool getPrestado();
+        bool getPrestado() const;
 
         /**
          * @brief Establece un nuevo estado del material si está prestado o no.

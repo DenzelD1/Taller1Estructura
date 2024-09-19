@@ -47,13 +47,13 @@ class Usuario {
          * @brief Consigue el nombre del usuario.
          */
 
-        string getNombre();
+        string getNombre() const;
 
         /**
          * @brief Consigue la identificación (id) del usuario.
          */
 
-        int getId();
+        int getId() const;
 
         /**
          * @brief Obtiene los materiales prestados por el usuario.
@@ -78,7 +78,7 @@ class Usuario {
          * esa lógica internamente.
          */
 
-        void prestarMaterial(MaterialBibliografico* material);
+        void prestarMaterial(MaterialBibliografico* material, string propietario);
 
         /**
          * @brief Devuelve un material prestado por el usuario.

@@ -15,7 +15,8 @@ using namespace std;
 //                                      FUNCIONES
 //---------------------------------------------------------------------------------------------------
 
-vector<Usuario*> leerUsuarios(const string& nombreArchivo) { //Abre usuarios.txt y los lee, devolviendo el vector de tipo Usuario con punteros.
+vector<Usuario*> leerUsuarios(const string& nombreArchivo, MaterialBibliografico* biblioteca[], 
+                                int cantidadMateriales) { //Abre usuarios.txt y los lee, devolviendo el vector de tipo Usuario con punteros.
     vector<Usuario*> usuarios;
     ifstream archivo(nombreArchivo);
 
@@ -31,9 +32,21 @@ vector<Usuario*> leerUsuarios(const string& nombreArchivo) { //Abre usuarios.txt
         int id;
         
         getline(ss, nombre, ','); 
-        ss >> id;  
+        ss >> id;
+        ss.ignore();  
 
         Usuario* nuevoUsuario = new Usuario(nombre, id);
+
+        string titulo;
+        while (getline(ss, titulo, ',')) {
+            for (int i = 0; i < cantidadMateriales; i++) {
+                if (biblioteca[i] -> getTituloLibro() == titulo) {
+                    nuevoUsuario -> prestarMaterial(biblioteca[i], "si");
+                    break;
+                }
+            }
+        }
+
         usuarios.push_back(nuevoUsuario);
     }
 
@@ -105,17 +118,6 @@ void mostrarBiblioteca(MaterialBibliografico* biblioteca[], int cantidadMaterial
     for (int i = 0; i < cantidadMateriales; i++) {
         biblioteca[i] -> mostrarInformacion();
         cout << "-------------------------------" << endl;
-    }
-}
-
-//Elimina los materiales almacenados en la memoria al cerrar el programa.
-void liberarMemoria(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
-    for (int i = 0; i < cantidadMateriales; i++) {
-        if (biblioteca[i] != nullptr) {
-            cout << "Eliminando " << biblioteca[i] -> getTituloLibro() << "..." << endl;
-            delete biblioteca[i];
-            biblioteca[i] = nullptr;
-        }
     }
 }
 
@@ -213,7 +215,7 @@ void prestarMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int 
 
     for (int i = 0; i < cantidadMateriales; i++) {
         if (biblioteca[i] -> getTituloLibro() == titulo) {
-            usuario.prestarMaterial(biblioteca[i]);
+            usuario.prestarMaterial(biblioteca[i], "no");
             return;
         }
     }
@@ -312,6 +314,81 @@ void mostrarUsuarios(vector<Usuario*>& usuarios){
     }
 }
 
+void guardarMateriales(const MaterialBibliografico* biblioteca[], int cantidadMateriales, const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo);
+
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo para guardar los materiales: " << nombreArchivo << endl;
+        return;
+    }
+
+    // Guardar cada material en el archivo
+    for (int i = 0; i < cantidadMateriales; i++) {
+        const Libro* libro = dynamic_cast<const Libro*>(biblioteca[i]);
+        const Revista* revista = dynamic_cast<const Revista*>(biblioteca[i]);
+
+        if (libro != nullptr) {
+            archivo << "Libro," << libro->getTituloLibro() << "," 
+                    << libro->getAutor() << "," 
+                    << libro->getIsbn() << ","
+                    << (libro->getPrestado() ? "true" : "false") << ","
+                    << libro->getFechaPublicacion() << ","
+                    << libro->getResumen() << "\n";
+        } else if (revista != nullptr) {
+            archivo << "Revista," << revista->getTituloLibro() << ","
+                    << revista->getAutor() << ","
+                    << revista->getIsbn() << ","
+                    << (revista->getPrestado() ? "true" : "false") << ","
+                    << revista->getNumEdicion() << ","
+                    << revista->getMesPublicacion() << "\n";
+        }
+    }
+
+    archivo.close();
+    cout << "Materiales guardados correctamente en " << nombreArchivo << ".\n";
+}
+
+void guardarUsuarios(vector<Usuario*>& usuarios, const string& nombreArchivo) {
+    ofstream archivo(nombreArchivo);
+
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo para guardar los usuarios: " << nombreArchivo << endl;
+        return;
+    }
+
+    // Guardar cada usuario en el archivo
+    for (Usuario* usuario : usuarios) {
+        archivo << usuario -> getNombre() << "," << usuario -> getId();
+
+        MaterialBibliografico** materialesPrestados = usuario -> getMaterialesPrestados();
+        for (int i = 0; i < 5; i++) {
+            if (materialesPrestados[i] != nullptr) {
+                archivo << "," << materialesPrestados[i] -> getTituloLibro();
+            }
+        }
+        archivo << "\n";
+    }
+
+    archivo.close();
+    cout << "Usuarios guardados correctamente en " << nombreArchivo << ".\n";
+}
+
+//Elimina los materiales almacenados en la memoria al cerrar el programa.
+void liberarMemoria(MaterialBibliografico* biblioteca[], int cantidadMateriales, vector<Usuario*>& usuarios) {
+    for (int i = 0; i < cantidadMateriales; i++) {
+        if (biblioteca[i] != nullptr) {
+            cout << "Eliminando " << biblioteca[i] -> getTituloLibro() << "..." << endl;
+            delete biblioteca[i];
+            biblioteca[i] = nullptr;
+        }
+    }
+
+    for (Usuario* usuario : usuarios) {
+        cout << "Eliminando usuario " << usuario->getNombre() << "..." << endl;
+        delete usuario;
+    } usuarios.clear();
+}
+
 //---------------------------------------------------------------------------------------------------
 //                                          MAIN
 //---------------------------------------------------------------------------------------------------
@@ -322,13 +399,13 @@ int main() {
     vector<MaterialBibliografico*> materiales = leerMaterialBibliografico("materialbibliografico.txt");
     transferirMaterialesABiblioteca(biblioteca, materiales, cantidadMateriales);
 
-    vector<Usuario*> usuarios = leerUsuarios("usuarios.txt");
+    vector<Usuario*> usuarios = leerUsuarios("usuarios.txt", biblioteca, cantidadMateriales);
     Usuario* usuarioActivo = nullptr;
-
+    cout << "--------------------------------------------" << endl;
     cout << "Usuarios actualmente registrados..." << endl;
+    cout << "--------------------------------------------" << endl;
     mostrarUsuarios(usuarios);
 
-    
     while (usuarioActivo == nullptr) {
         cout << "---- Iniciar sesión ----\n";
         cout << "Ingrese su ID: ";
@@ -439,7 +516,9 @@ int main() {
                 }
                 break;
             case 9:
-                cout << "Saliendo del sistema...\n";
+                guardarMateriales(const_cast<const MaterialBibliografico**>(biblioteca), cantidadMateriales, "materialbibliografico.txt");
+                guardarUsuarios(usuarios, "usuarios.txt");
+                cout << "Saliendo y guardando el sistema...\n";
                 break;
             case 10:
                 mostrarUsuarios(usuarios);
@@ -448,8 +527,8 @@ int main() {
                 cout << "Opción no válida.\n";
                 break;
         }
-    } while (opcion != 9); 
-    liberarMemoria(biblioteca, cantidadMateriales);
-    for (Usuario* usuario : usuarios) { delete usuario; }
+    } while (opcion != 9);
+
+    liberarMemoria(biblioteca, cantidadMateriales, usuarios);
     return 0;
 }

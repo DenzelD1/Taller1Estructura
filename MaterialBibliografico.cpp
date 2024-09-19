@@ -14,8 +14,8 @@ void MaterialBibliografico :: mostrarInformacion() {
     cout << "Informacion general" << endl;
 }
 
-string MaterialBibliografico :: getTituloLibro() { return tituloLibro; }
-string MaterialBibliografico :: getAutor() { return autor; }
-string MaterialBibliografico :: getIsbn() { return isbn; }
-bool MaterialBibliografico :: getPrestado() { return prestado; }
+string MaterialBibliografico :: getTituloLibro() const { return tituloLibro; }
+string MaterialBibliografico :: getAutor() const { return autor; }
+string MaterialBibliografico :: getIsbn() const { return isbn; }
+bool MaterialBibliografico :: getPrestado() const { return prestado; }
 void MaterialBibliografico :: setPrestado(bool prestado) { this -> prestado = prestado; }

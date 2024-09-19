@@ -20,5 +20,5 @@ void Libro :: mostrarInformacion() {
     cout << "Resumen: " << getResumen() << endl;
 }
 
-int Libro :: getFechaPublicacion() { return fechaPublicacion; }
-string Libro :: getResumen() { return resumen; }
+int Libro :: getFechaPublicacion() const { return fechaPublicacion; }
+string Libro :: getResumen() const { return resumen; }

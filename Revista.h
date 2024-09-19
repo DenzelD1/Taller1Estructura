@@ -46,11 +46,11 @@ class Revista: public MaterialBibliografico {
          * @brief Consigue el número de edición de la revista.
          */
 
-        int getNumEdicion();
+        int getNumEdicion() const;
 
         /**
          * @brief Consigue el mes de publicación de la revista.
          */
 
-        int getMesPublicacion();
+        int getMesPublicacion() const;
 };

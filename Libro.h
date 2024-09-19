@@ -46,12 +46,12 @@ class Libro: public MaterialBibliografico {
          * @brief Consigue la fecha de publicación del Libro.
          */
 
-        int getFechaPublicacion();
+        int getFechaPublicacion() const;
 
         /**
          * @brief Consigue el resumen del Libro.
          */
 
-        string getResumen();
+        string getResumen() const;
 
 };

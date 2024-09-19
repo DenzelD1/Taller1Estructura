@@ -20,5 +20,5 @@ void Revista :: mostrarInformacion() {
     cout << "Mes de publicación: " <<  getMesPublicacion() << endl;
 }
 
-int Revista :: getNumEdicion() { return numEdicion; }
-int Revista :: getMesPublicacion() { return mesPublicacion; }
+int Revista :: getNumEdicion() const { return numEdicion; }
+int Revista :: getMesPublicacion() const { return mesPublicacion; }

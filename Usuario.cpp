@@ -7,21 +7,21 @@ Usuario :: Usuario(string nombre, int id) {
     this -> id = id;
 }
 
-string Usuario :: getNombre() { return nombre; }
-int Usuario :: getId() { return id; }
+string Usuario :: getNombre() const { return nombre; }
+int Usuario :: getId() const { return id; }
 MaterialBibliografico** Usuario :: getMaterialesPrestados() { return materialesPrestados; }
 
-void Usuario :: prestarMaterial(MaterialBibliografico* material) {
+void Usuario :: prestarMaterial(MaterialBibliografico* material, string propietario) {
     for (int i = 0; i < 5; i++) {
         
-        if (material -> getPrestado()) {
+        if (material -> getPrestado() && propietario == "no") {
             cout << "Este material ya está prestado." << endl;
             return;
         } else {
             if (materialesPrestados[i] == nullptr) {
                 materialesPrestados[i] = material;
                 material -> setPrestado(true);
-                cout << "Material prestado con éxito." << endl;
+                if (propietario == "no") { cout << "Material prestado con éxito" << endl; }
                 return;
             }
         }
