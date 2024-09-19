@@ -2,10 +2,11 @@
 #include "MaterialBibliografico.h"
 using namespace std;
 
+
 MaterialBibliografico :: MaterialBibliografico(string tituloLibro, string autor, string isbn, bool prestado) {
-    this -> tituloLibro = tituloLibro;
-    this -> autor = autor;
-    this -> isbn = isbn;
+    this -> tituloLibro = tituloLibro; 
+    this -> autor = autor; 
+    this -> isbn = isbn; 
     this -> prestado = prestado;
 }
 

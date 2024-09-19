@@ -15,7 +15,7 @@ using namespace std;
 //                                      FUNCIONES
 //---------------------------------------------------------------------------------------------------
 
-vector<Usuario*> leerUsuarios(const string& nombreArchivo) {
+vector<Usuario*> leerUsuarios(const string& nombreArchivo) { //Abre usuarios.txt y los lee, devolviendo el vector de tipo Usuario con punteros.
     vector<Usuario*> usuarios;
     ifstream archivo(nombreArchivo);
 
@@ -41,7 +41,7 @@ vector<Usuario*> leerUsuarios(const string& nombreArchivo) {
     return usuarios;
 }
 
-vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArchivo) {
+vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArchivo) { //Abre materialbibliográfico.txt y los lee, devolviendo el vector de tipo MaterialBibliografico con punteros.
     vector<MaterialBibliografico*> biblioteca;
     ifstream archivo(nombreArchivo);
     
@@ -108,6 +108,7 @@ void mostrarBiblioteca(MaterialBibliografico* biblioteca[], int cantidadMaterial
     }
 }
 
+//Elimina los materiales almacenados en la memoria al cerrar el programa.
 void liberarMemoria(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
     for (int i = 0; i < cantidadMateriales; i++) {
         if (biblioteca[i] != nullptr) {
@@ -118,6 +119,7 @@ void liberarMemoria(MaterialBibliografico* biblioteca[], int cantidadMateriales)
     }
 }
 
+//Agrega un material que no se encuentre presente a la biblioteca.
 void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriales) {
     if (cantidadMateriales >= 100) {
         cerr << "Error: Se ha alcanzado el límite máximo de 100 materiales en la biblioteca." << endl;
@@ -168,6 +170,7 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
     cout << "Material agregado exitosamente.\n";
 }
 
+//Busca un material dentro del arreglo biblioteca.
 void buscarMaterial(MaterialBibliografico* biblioteca[], int cantidadMateriales) {
     cout << "Buscar material por:\n";
     cout << "1. Título\n";
@@ -202,6 +205,7 @@ void buscarMaterial(MaterialBibliografico* biblioteca[], int cantidadMateriales)
     }
 }
 
+//Posibilita que el usuario pueda tomar prestado algún material bibliográfico.
 void prestarMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int cantidadMateriales) {
     string titulo;
     cout << "Ingrese el título del material que desea prestar: ";
@@ -217,6 +221,7 @@ void prestarMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int 
     cout << "Material no encontrado o ya prestado.\n";
 }
 
+//Posibilita que el usuario pueda devolver algún material bibliogrpafico que tomó prestado.
 void devolverMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int cantidadMateriales) {
     string titulo;
     cout << "Ingrese el título del material que desea devolver: ";
@@ -232,6 +237,7 @@ void devolverMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int
     cout << "Material no encontrado en tu lista de prestados.\n";
 }
 
+//Permite que se pueda crear un nuevo usuario.
 void crearUsuario(vector<Usuario*>& usuarios) {
     string nombre;
     int id;
@@ -254,6 +260,7 @@ void crearUsuario(vector<Usuario*>& usuarios) {
     cout << "Usuario " << nombre << " agregado exitosamente.\n";
 }
 
+//Busca un usuario almacenado en el vector usuarios de tipo Usuario.
 void buscarUsuario(const vector<Usuario*>& usuarios) {
     int id;
     cout << "Ingrese la ID del usuario que desea buscar: ";
@@ -270,6 +277,7 @@ void buscarUsuario(const vector<Usuario*>& usuarios) {
     cout << "Usuario con ID " << id << " no encontrado.\n";
 }
 
+//Elimina un usuario que ya estaba almacenado en usuarios.
 void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& eliminarse) {
     int id;
     cout << "Ingrese la ID del usuario que desea eliminar: ";
@@ -297,6 +305,7 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& elimina
     cout << "Usuario con ID " << id << " no encontrado.\n";
 }
 
+//Muestra los usuarios que están actualmente registrados.
 void mostrarUsuarios(vector<Usuario*>& usuarios){
     for (Usuario* usuario : usuarios) {
         cout << "Nombre: " << usuario -> getNombre() << ", ID: " << usuario -> getId() << endl;
