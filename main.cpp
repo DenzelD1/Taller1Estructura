@@ -7,7 +7,6 @@
 #include "Libro.h"
 #include "Usuario.h"
 #include <limits>
-#include "EntradaNoNumericaException.h"
 
 using namespace std;
 
