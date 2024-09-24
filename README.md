@@ -4,6 +4,11 @@ Integrantes:
 - Denzel Martín Delgado Urquieta, 21.401.250-2, denzel.delgado@alumnos.ucn.cl, C2
 - Pablo Jesús Villarroel Rivera, 21.239.259-6, pablo.villarroel01@alumnos.ucn.cl, C2
 
+El programa se ejecuta con g++.
+
+Los archivos que se iniciarán serán main.cpp, Libro.cpp, Usuario.cpp, Revista.cpp, MaterialBibliografico.cpp al momento de ejecutar el main.exe.
+
+El programa al iniciarse mostrará una lista de usuarios registrados en la biblioteca digital, la cual, podrá iniciar sesión con cualquiera de ellos ingresando su ID para después desplegarse el menú de la biblioteca digital y realizar las acciones que necesiten de ese usuario.
 
 Objetos creados de MaterialBibliografico.txt:
 

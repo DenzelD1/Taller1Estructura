@@ -21,7 +21,7 @@ void Usuario :: prestarMaterial(MaterialBibliografico* material, string propieta
             if (materialesPrestados[i] == nullptr) {
                 materialesPrestados[i] = material;
                 material -> setPrestado(true);
-                if (propietario == "no") { cout << "Material prestado con éxito" << endl; }
+                if (propietario == "no") { cout << "Material prestado con exito" << endl; }
                 return;
             }
         }

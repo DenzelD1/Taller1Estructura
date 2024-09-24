@@ -12,11 +12,11 @@ Revista :: Revista(int numEdicion, int mesPublicacion, string tituloLibro, strin
 }
 
 void Revista :: mostrarInformacion() {
-    cout << "Título: " << getTituloLibro() << endl;
+    cout << "Titulo: " << getTituloLibro() << endl;
     cout << "Autor: " << getAutor() << endl;
     cout << "ISBN: " << getIsbn() << endl;
-    cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << endl;
-    cout << "Edición: " << getNumEdicion() << endl;
+    cout << "Prestado: " << (getPrestado() ? "Si" : "No") << endl;
+    cout << "Edicion: " << getNumEdicion() << endl;
     cout << "Mes de publicación: " <<  getMesPublicacion() << endl;
 }
 

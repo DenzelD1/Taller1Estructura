@@ -12,11 +12,11 @@ Libro :: Libro (int fechaPublicacion, string resumen, string tituloLibro, string
 }
 
 void Libro :: mostrarInformacion() {
-    cout << "Título: " << getTituloLibro() << endl;
+    cout << "Titulo: " << getTituloLibro() << endl;
     cout << "Autor: " << getAutor() << endl;
     cout << "ISBN: " << getIsbn() << endl;
-    cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << endl;
-    cout << "Fecha de publicación: " << getFechaPublicacion() << endl;
+    cout << "Prestado: " << (getPrestado() ? "Si" : "No") << endl;
+    cout << "Fecha de publicacion: " << getFechaPublicacion() << endl;
     cout << "Resumen: " << getResumen() << endl;
 }
 
