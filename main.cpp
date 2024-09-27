@@ -453,16 +453,13 @@ int main() {
                 buscarMaterial(biblioteca, cantidadMateriales);
                 break;
             case 4:
-                if (usuarioActivo != nullptr) { prestarMaterial(*usuarioActivo, biblioteca, cantidadMateriales); } 
-                else { cout << "No hay un usuario activo. Inicie sesion primero.\n"; }
+                prestarMaterial(*usuarioActivo, biblioteca, cantidadMateriales); 
                 break;
             case 5:
-                if (usuarioActivo != nullptr) { devolverMaterial(*usuarioActivo, biblioteca, cantidadMateriales); } 
-                else { cout << "No hay un usuario activo. Inicie sesion primero.\n"; }
+                devolverMaterial(*usuarioActivo, biblioteca, cantidadMateriales);
                 break;
             case 6:
-                if (usuarioActivo != nullptr) { usuarioActivo -> mostrarMaterialesPrestados(); } 
-                else { cout << "No hay un usuario activo. Inicie sesion primero.\n"; }
+                usuarioActivo -> mostrarMaterialesPrestados(); 
                 break;
             case 7:
                 cout << "1. Crear Usuario\n";
@@ -483,7 +480,7 @@ int main() {
                         eliminarUsuario(usuarios, *usuarioActivo, eliminarse);
                         break;
                     default:
-                        cout << "Opción no valida.\n";
+                        cout << "Opcion no valida.\n";
                         break;
                 }
                 break;

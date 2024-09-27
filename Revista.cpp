@@ -17,7 +17,7 @@ void Revista :: mostrarInformacion() {
     cout << "ISBN: " << getIsbn() << endl;
     cout << "Prestado: " << (getPrestado() ? "Si" : "No") << endl;
     cout << "Edicion: " << getNumEdicion() << endl;
-    cout << "Mes de publicación: " <<  getMesPublicacion() << endl;
+    cout << "Mes de publicacion: " <<  getMesPublicacion() << endl;
 }
 
 int Revista :: getNumEdicion() const { return numEdicion; }

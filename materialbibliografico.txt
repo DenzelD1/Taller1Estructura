@@ -2,9 +2,9 @@ Revista,Scientific American,Anna Wintour,978-1-345-67890-2,false,5,12
 Libro,El Principito,Antoine de Saint-Exupery,978-2-266-00001-3,false,1943,"Un joven principe viaja por el universo
 Libro,Dune,Frank Herbert,978-0-441-17784-0,false,1965,"Un joven noble lucha por el control de un planeta desertico y su valiosa especia."
 Revista,Forbes,Steve Forbes,978-1-234-56789-0,false,4,7
-Libro,1984,George Orwell,978-0-451-52493-5,false,1949,"Una sociedad totalitaria controla la vida de sus ciudadanos a través de la vigilancia constante."
+Libro,1984,George Orwell,978-0-451-52493-5,false,1949,"Una sociedad totalitaria controla la vida de sus ciudadanos a traves de la vigilancia constante."
 Revista,The Atlantic,Jeffrey Goldberg,978-1-234-09876-5,false,3,1
 Libro,Orgullo y prejuicio,Jane Austen,980-0-141-43948-8,false,1813,"Una joven mujer de clase media debe superar los prejuicios sociales para encontrar el amor."
 Revista,Harper's Bazaar,Samira Nasr,978-1-876-54321-0,false,8,6
 Revista,The Economist,Zanny Minton Beddoes,978-1-234-55328-0,false,9,2
-Libro,El gran Gatsby,F. Scott Fitzgerald,978-0-7432-7356-5,false,1925,"Un millonario misterioso organiza fastuosas fiestas en los años 20
+Libro,El gran Gatsby,F. Scott Fitzgerald,978-0-7432-7356-5,false,1925,"Un millonario misterioso organiza fastuosas fiestas en los anios 20
