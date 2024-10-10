@@ -7,6 +7,7 @@
 #include "Libro.h"
 #include "Usuario.h"
 #include <limits>
+#include <regex>
 
 using namespace std;
 
@@ -14,8 +15,27 @@ using namespace std;
 //                                      FUNCIONES
 //---------------------------------------------------------------------------------------------------
 
+//Maneja la entrada de string ante una peticion de un numero entero
+int obtenerEntero(string peticion) {
+    int valor;
+    while (true) {
+        cout << "Ingrese " << peticion << ": ";
+        cin >> valor;
+
+        if (cin.fail()) {  
+            cin.clear();  
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada invalida, ingrese nuevamente el dato." << endl;
+        } else {
+            break;  
+        }
+    }
+    return valor;
+}
+
+//Abre usuarios.txt y los lee, devolviendo el vector de tipo Usuario con punteros.
 vector<Usuario*> leerUsuarios(const string& nombreArchivo, MaterialBibliografico* biblioteca[], 
-                                int cantidadMateriales) { //Abre usuarios.txt y los lee, devolviendo el vector de tipo Usuario con punteros.
+                                int cantidadMateriales) { 
     vector<Usuario*> usuarios;
     ifstream archivo(nombreArchivo);
 
@@ -53,7 +73,8 @@ vector<Usuario*> leerUsuarios(const string& nombreArchivo, MaterialBibliografico
     return usuarios;
 }
 
-vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArchivo) { //Abre materialbibliográfico.txt y los lee, devolviendo el vector de tipo MaterialBibliografico con punteros.
+//Abre materialbibliográfico.txt y los lee, devolviendo el vector de tipo MaterialBibliografico con punteros.
+vector<MaterialBibliografico*> leerMaterialBibliografico(const string& nombreArchivo) { 
     vector<MaterialBibliografico*> biblioteca;
     ifstream archivo(nombreArchivo);
     
@@ -120,6 +141,28 @@ void mostrarBiblioteca(MaterialBibliografico* biblioteca[], int cantidadMaterial
     }
 }
 
+//Comprueba que el formato del ISBN se encuentre correcto
+bool validarISBN(const string& isbn) {
+    regex formatoISBN("^\\d{1,3}-\\d{1}-\\d{1,4}-\\d{1,4}-\\d{1}$");
+    return regex_match(isbn, formatoISBN);
+}
+
+//Le devuelve al usuario el ISBN con el formato debido
+string obtenerISBN() {
+    string isbn;
+    while (true) {
+        cout << "Ingrese el ISBN (formato general XXX-X-XXXX-XXXX-X):" << endl;
+        cin >> isbn;
+
+        if (!validarISBN(isbn)) {
+            cout << "El formato no es correcto." << endl;
+        } else {
+            break;
+        }
+    }
+    return isbn;
+}
+
 //Agrega un material que no se encuentre presente a la biblioteca.
 void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriales) {
     if (cantidadMateriales >= 100) {
@@ -130,42 +173,30 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
     cout << "Agregar material a la biblioteca:\n";
     cout << "1. Libro\n";
     cout << "2. Revista\n";
-    int opcion;
-    cin >> opcion;
-    cin.ignore(); 
-
+    int opcion = obtenerEntero("el tipo de material");
+    cin.ignore();
+    
     if (opcion < 1 || opcion > 2) { cerr << "Opcion invalida.\n"; return; }
 
-    string titulo, autor, isbn;
+    string titulo, autor;
     cout << "Ingrese el titulo: ";
     getline(cin, titulo);
     cout << "Ingrese el autor: ";
     getline(cin, autor);
-    cout << "Ingrese el ISBN: ";
-    getline(cin, isbn);
+
+    string isbn = obtenerISBN();
 
     if (opcion == 1) {
         string resumen;
-        int fechaPublicacion;
-        cout << "Ingrese el anio de publicacion: ";
-        cin >> fechaPublicacion;
-        cin.ignore();
+        int fechaPublicacion = obtenerEntero("el anio de publicacion");
         cout << "Ingrese el resumen: ";
         getline(cin, resumen);
         biblioteca[cantidadMateriales] = new Libro(fechaPublicacion, resumen, titulo, autor, isbn, false);
     } else {
-        
-        int numEdicion;
-        int mesPublicacion;
-        cout << "Ingrese el numero de edicion: ";
-        cin >> numEdicion;
-        cin.ignore();
-        cout << "Ingrese el mes de publicacion: ";
-        cin >> mesPublicacion;
-        cin.ignore();
+        int numEdicion = obtenerEntero("el numero de edicion");
+        int mesPublicacion = obtenerEntero("el mes de publicacion");
         if (mesPublicacion > 12 || mesPublicacion < 1) { cout << "Mes invalido." << endl; return; }
-        biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);
-        
+        biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);   
     }
     cantidadMateriales++;
     cout << "Material agregado exitosamente.\n";
@@ -176,9 +207,7 @@ void buscarMaterial(MaterialBibliografico* biblioteca[], int cantidadMateriales)
     cout << "Buscar material por:\n";
     cout << "1. Titulo\n";
     cout << "2. Autor\n";
-    int opcion;
-    cin >> opcion;
-    cin.ignore();  
+    int opcion = obtenerEntero("el tipo de busqueda"); 
 
     string busqueda;
     if (opcion == 1) {
@@ -241,13 +270,11 @@ void devolverMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int
 //Permite que se pueda crear un nuevo usuario.
 void crearUsuario(vector<Usuario*>& usuarios) {
     string nombre;
-    int id;
 
     cout << "Ingrese el nombre del nuevo usuario: ";
     getline(cin, nombre);
-    cout << "Ingrese la ID del nuevo usuario: ";
-    cin >> id;
-    cin.ignore(); 
+
+    int id = obtenerEntero("un ID para el nuevo usuario"); 
 
     for (Usuario* usuario : usuarios) {
         if (usuario -> getId() == id) {
@@ -263,10 +290,7 @@ void crearUsuario(vector<Usuario*>& usuarios) {
 
 //Busca un usuario almacenado en el vector usuarios de tipo Usuario.
 void buscarUsuario(const vector<Usuario*>& usuarios) {
-    int id;
-    cout << "Ingrese la ID del usuario que desea buscar: ";
-    cin >> id;
-    cin.ignore(); 
+    int id = obtenerEntero("el ID del usuario a buscar");
 
     for (Usuario* usuario : usuarios) {
         if (usuario -> getId() == id) {
@@ -280,10 +304,7 @@ void buscarUsuario(const vector<Usuario*>& usuarios) {
 
 //Elimina un usuario que ya estaba almacenado en usuarios.
 void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& eliminarse) {
-    int id;
-    cout << "Ingrese la ID del usuario que desea eliminar: ";
-    cin >> id;
-    cin.ignore(); 
+    int id = obtenerEntero("el ID del usuario a eliminar");
 
     for (size_t i = 0; i < usuarios.size(); i++) {
         if (usuarios[i] -> getId() == id) {
@@ -308,6 +329,9 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& elimina
 
 //Muestra los usuarios que están actualmente registrados.
 void mostrarUsuarios(vector<Usuario*>& usuarios){
+    cout << "--------------------------------------------" << endl;
+    cout << "Usuarios actualmente registrados..." << endl;
+    cout << "--------------------------------------------" << endl;
     for (Usuario* usuario : usuarios) {
         cout << "Nombre: " << usuario -> getNombre() << ", ID: " << usuario -> getId() << endl;
     }
@@ -396,17 +420,11 @@ int main() {
 
     vector<Usuario*> usuarios = leerUsuarios("usuarios.txt", biblioteca, cantidadMateriales);
     Usuario* usuarioActivo = nullptr;
-    cout << "--------------------------------------------" << endl;
-    cout << "Usuarios actualmente registrados..." << endl;
-    cout << "--------------------------------------------" << endl;
     mostrarUsuarios(usuarios);
 
     while (usuarioActivo == nullptr) {
         cout << "---- Iniciar sesion ----\n";
-        cout << "Ingrese su ID: ";
-        int id;
-        cin >> id;
-        cin.ignore();
+        int id = obtenerEntero("su ID");
 
         for (Usuario* usuario : usuarios) {
             if (usuario -> getId() == id) {
@@ -423,6 +441,7 @@ int main() {
     
     bool eliminarse = false;
     int opcion;
+    int opcionUsuario;
     do {
         if (eliminarse) { opcion = 8; }
         else {
@@ -437,9 +456,7 @@ int main() {
             cout << "8. Cerrar sesion\n";
             cout << "9. Salir\n";
             cout << "10. Lista de usuarios actuales\n";
-            cout << "Seleccione una opcion: ";
-            cin >> opcion;
-            cin.ignore();
+            opcion = obtenerEntero("una opcion");
         }
         cout << "-----------------------------------------------" << endl;
         switch (opcion) {
@@ -465,10 +482,7 @@ int main() {
                 cout << "1. Crear Usuario\n";
                 cout << "2. Buscar Usuario\n";
                 cout << "3. Eliminar Usuario\n";
-                cout << "Seleccione una opcion: ";
-                int opcionUsuario;
-                cin >> opcionUsuario;
-                cin.ignore();
+                opcionUsuario = obtenerEntero("una opcion");
                 switch (opcionUsuario) {
                     case 1:
                         crearUsuario(usuarios);
@@ -491,11 +505,9 @@ int main() {
                 } else { cout << "Cerrando sesion de " << usuarioActivo -> getNombre() << ".\n"; } 
                 usuarioActivo = nullptr;
                 while (usuarioActivo == nullptr) {
+                    mostrarUsuarios(usuarios);
                     cout << "---- Iniciar sesion ----\n";
-                    cout << "Ingrese su ID: ";
-                    int id;
-                    cin >> id;
-                    cin.ignore(); 
+                    int id = obtenerEntero("su ID");
 
                     for (Usuario* usuario : usuarios) {
                         if (usuario -> getId() == id) {

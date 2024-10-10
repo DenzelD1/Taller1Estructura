@@ -4,7 +4,7 @@ Integrantes:
 - Denzel Martín Delgado Urquieta, 21.401.250-2, denzel.delgado@alumnos.ucn.cl, C2
 - Pablo Jesús Villarroel Rivera, 21.239.259-6, pablo.villarroel01@alumnos.ucn.cl, C2
 
-El programa se ejecuta con "./main.exe" luego de crear el ejecutable "g++ main.cpp Usuario.cpp MaterialBibliografico.cpp Revista.cpp Libro.cpp -o main.exe". Se puede obviar este ultimo porque ya está hecho.
+Primero, se debe crear el ejecutable "g++ -std=c++11 main.cpp Usuario.cpp MaterialBibliografico.cpp Revista.cpp Libro.cpp -o main.exe". Luego, para ejecutar el programa debe escribir "./main.exe".
 
 Los archivos que se iniciarán serán main.cpp, Libro.cpp, Usuario.cpp, Revista.cpp, MaterialBibliografico.cpp al momento de ejecutar el main.exe.
 
