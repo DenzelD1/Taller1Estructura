@@ -207,7 +207,8 @@ void buscarMaterial(MaterialBibliografico* biblioteca[], int cantidadMateriales)
     cout << "Buscar material por:\n";
     cout << "1. Titulo\n";
     cout << "2. Autor\n";
-    int opcion = obtenerEntero("el tipo de busqueda"); 
+    int opcion = obtenerEntero("el tipo de busqueda");
+    cin.ignore(); 
 
     string busqueda;
     if (opcion == 1) {
@@ -270,11 +271,11 @@ void devolverMaterial(Usuario& usuario, MaterialBibliografico* biblioteca[], int
 //Permite que se pueda crear un nuevo usuario.
 void crearUsuario(vector<Usuario*>& usuarios) {
     string nombre;
-
     cout << "Ingrese el nombre del nuevo usuario: ";
     getline(cin, nombre);
 
     int id = obtenerEntero("un ID para el nuevo usuario"); 
+    cin.ignore();
 
     for (Usuario* usuario : usuarios) {
         if (usuario -> getId() == id) {
@@ -282,7 +283,6 @@ void crearUsuario(vector<Usuario*>& usuarios) {
             return;
         }
     }
-
     Usuario* nuevoUsuario = new Usuario(nombre, id);
     usuarios.push_back(nuevoUsuario);
     cout << "Usuario " << nombre << " agregado exitosamente.\n";
@@ -291,7 +291,7 @@ void crearUsuario(vector<Usuario*>& usuarios) {
 //Busca un usuario almacenado en el vector usuarios de tipo Usuario.
 void buscarUsuario(const vector<Usuario*>& usuarios) {
     int id = obtenerEntero("el ID del usuario a buscar");
-
+    cin.ignore();
     for (Usuario* usuario : usuarios) {
         if (usuario -> getId() == id) {
             cout << "Usuario encontrado: " << usuario -> getNombre() << ", ID: " << usuario -> getId() << ".\n";
@@ -305,7 +305,7 @@ void buscarUsuario(const vector<Usuario*>& usuarios) {
 //Elimina un usuario que ya estaba almacenado en usuarios.
 void eliminarUsuario(vector<Usuario*>& usuarios, Usuario& usuario, bool& eliminarse) {
     int id = obtenerEntero("el ID del usuario a eliminar");
-
+    cin.ignore();
     for (size_t i = 0; i < usuarios.size(); i++) {
         if (usuarios[i] -> getId() == id) {
             MaterialBibliografico** materialesPrestados = usuarios[i] -> getMaterialesPrestados();
@@ -425,7 +425,7 @@ int main() {
     while (usuarioActivo == nullptr) {
         cout << "---- Iniciar sesion ----\n";
         int id = obtenerEntero("su ID");
-
+        cin.ignore();
         for (Usuario* usuario : usuarios) {
             if (usuario -> getId() == id) {
                 usuarioActivo = usuario;
@@ -457,6 +457,7 @@ int main() {
             cout << "9. Salir\n";
             cout << "10. Lista de usuarios actuales\n";
             opcion = obtenerEntero("una opcion");
+            cin.ignore();
         }
         cout << "-----------------------------------------------" << endl;
         switch (opcion) {
@@ -508,7 +509,7 @@ int main() {
                     mostrarUsuarios(usuarios);
                     cout << "---- Iniciar sesion ----\n";
                     int id = obtenerEntero("su ID");
-
+                    cin.ignore();
                     for (Usuario* usuario : usuarios) {
                         if (usuario -> getId() == id) {
                             usuarioActivo = usuario;
