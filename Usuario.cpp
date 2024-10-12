@@ -40,7 +40,7 @@ void Usuario :: devolverMaterial(MaterialBibliografico* material) {
         }
     }
 
-    cout << "Este material no está en tu lista de prestados." << endl;
+    cout << "Este material no esta en tu lista de prestados." << endl;
 }
 
 void Usuario :: mostrarMaterialesPrestados() {
