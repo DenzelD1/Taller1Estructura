@@ -15,7 +15,7 @@ void Usuario :: prestarMaterial(MaterialBibliografico* material, string propieta
     for (int i = 0; i < 5; i++) {
         
         if (material -> getPrestado() && propietario == "no") {
-            cout << "Este material ya está prestado." << endl;
+            cout << "Este material ya esta prestado." << endl;
             return;
         } else {
             if (materialesPrestados[i] == nullptr) {

@@ -189,12 +189,15 @@ void agregarMaterial(MaterialBibliografico* biblioteca[], int& cantidadMateriale
     if (opcion == 1) {
         string resumen;
         int fechaPublicacion = obtenerEntero("el anio de publicacion");
+        cin.ignore();
         cout << "Ingrese el resumen: ";
         getline(cin, resumen);
         biblioteca[cantidadMateriales] = new Libro(fechaPublicacion, resumen, titulo, autor, isbn, false);
     } else {
         int numEdicion = obtenerEntero("el numero de edicion");
+        cin.ignore();
         int mesPublicacion = obtenerEntero("el mes de publicacion");
+        cin.ignore();
         if (mesPublicacion > 12 || mesPublicacion < 1) { cout << "Mes invalido." << endl; return; }
         biblioteca[cantidadMateriales] = new Revista(numEdicion, mesPublicacion, titulo, autor, isbn, false);   
     }
@@ -214,6 +217,7 @@ void buscarMaterial(MaterialBibliografico* biblioteca[], int cantidadMateriales)
     if (opcion == 1) {
         cout << "Ingrese el titulo a buscar: ";
         getline(cin, busqueda);
+        cout << "-----------------------------------------------" << endl;
         for (int i = 0; i < cantidadMateriales; i++) {
             if (biblioteca[i] -> getTituloLibro() == busqueda) {
                 biblioteca[i] -> mostrarInformacion();
@@ -484,6 +488,7 @@ int main() {
                 cout << "2. Buscar Usuario\n";
                 cout << "3. Eliminar Usuario\n";
                 opcionUsuario = obtenerEntero("una opcion");
+                cin.ignore();
                 switch (opcionUsuario) {
                     case 1:
                         crearUsuario(usuarios);
